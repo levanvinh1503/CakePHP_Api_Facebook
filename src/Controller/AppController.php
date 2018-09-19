@@ -51,5 +51,21 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+        $this->loadComponent('Auth', [
+            'loginAction' => [
+                'controller' => 'AccountSocial',
+                'action' => 'login'
+            ],
+            'loginRedirect' => [
+                'controller' => 'AccountSocial',
+                'action' => 'dashBoard'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'AccountSocial',
+                'action' => 'login'
+            ]
+        ]);
+        $this->Auth->allow(['loginFacebook']);
+        $this->loadComponent('Paginator');
     }
 }
