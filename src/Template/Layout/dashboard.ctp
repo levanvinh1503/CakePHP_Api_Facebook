@@ -76,7 +76,7 @@ $cakeDescription = 'Demo CakePHP';
                         <?= $this->Html->link('<em class="fa fa-bars"></em> List bài đăng', [
                             'controller' => 'AccountSocial',
                             'action' => 'listPost',
-                            'id' => '109710273327091'
+                            'id' => $Auth->user('id')
                         ], [
                             'id' => 'flip-category',
                             'escape' => false

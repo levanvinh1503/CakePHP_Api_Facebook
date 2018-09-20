@@ -83,3 +83,14 @@ define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendor' . DS . 'cakephp' . DS . 'c
  */
 define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
+
+/**
+ * API Facebook
+ */
+define('FACEBOOK_APP_ID', '1709496319176798');
+define('FACEBOOK_APP_SECRET', '5f05fcd0adcc5d136096fa1c5f8f5599');
+define('FACEBOOK_REDIRECT_URI', 'http://localhost/democakephp/login-facebook');
+define('FACEBOOK_SDK_V4_SRC_DIR','../vendor/facebook/graph-sdk/src/Facebook/');
+//Define limit
+define('FRIEND_LIMIT', 5);
+define('POST_LIMIT', 5);

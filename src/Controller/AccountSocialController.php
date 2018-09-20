@@ -116,7 +116,7 @@ class AccountSocialController extends AppController
         //Load model Category
         $friendModel = $this->loadModel('FriendSocial');
         $arrayFriend = $this->paginate($friendModel->find(), [
-            'limit' => 5
+            'limit' => FRIEND_LIMIT
         ]);
         //Set data to view
         $this->set(compact('arrayFriend', 'idAccount'));
@@ -140,7 +140,7 @@ class AccountSocialController extends AppController
         //Load model Category
         $postModel = $this->loadModel('PostSocial');
         $arrayPost = $this->paginate($postModel->find(), [
-            'limit' => 5
+            'limit' => POST_LIMIT
         ]);
         //Set data to view
         $this->set(compact('arrayPost', 'idAccount'));
