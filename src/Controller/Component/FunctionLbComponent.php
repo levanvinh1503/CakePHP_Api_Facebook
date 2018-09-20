@@ -33,6 +33,7 @@ class FunctionLbComponent extends Component
      */
     public function getInfo($facebookObj, $accessToken)
     {
+        //Call Api get information user login
         $getInfo = $facebookObj->get('/me?fields=id,name,email', $accessToken);
         $graphNode = $getInfo->getGraphNode();
 
@@ -48,6 +49,7 @@ class FunctionLbComponent extends Component
      */
     public function getUserInfo($facebookObj, $idAccount, $accessToken)
     {
+        //Call Api get infomation user
         $getInfo = $facebookObj->post('/' . $idAccount, ['fields' => 'id,name,email,gender,birthday,picture'], $accessToken);
         $graphNode = $getInfo->getGraphNode();
 
@@ -63,6 +65,7 @@ class FunctionLbComponent extends Component
      */
     public function getFriend($facebookObj, $accessToken, $idAccount)
     {
+        //Call Api get information friend
         $getFriend = $facebookObj->get('/' . $idAccount . '/friends?fields=id,name,email', $accessToken);
         $graphFriend = $getFriend->getGraphEdge();
 
@@ -78,6 +81,7 @@ class FunctionLbComponent extends Component
      */
     public function getPost($facebookObj, $accessToken, $idAccount)
     {
+        //Call Api get post
         $getPosts = $facebookObj->get('/' . $idAccount . '/feed?fields=id,message,picture,created_time', $accessToken);
         $graphPosts = $getPosts->getGraphEdge();
 
@@ -92,6 +96,7 @@ class FunctionLbComponent extends Component
      */
     public function saveData($friendModel, $arrayData, $idPost)
     {   
+        //New entity of model
         $newEntity = $friendModel->newEntity($arrayData);
         $patchEntity = $friendModel->patchEntity($newEntity, $arrayData);
         //If data is not saved then the data can be updated

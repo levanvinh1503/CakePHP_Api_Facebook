@@ -231,7 +231,7 @@ class AccountSocialController extends AppController
         if ($getFriend->id_account == $idAccount) {
             //Get user infomation
             $getUserInfo = $this->FunctionLb->getUserInfo($facebookObj, $idFriend, $accessToken);
-            $this->set(compact('getUserInfo', 'getImageUpload', 'getImageTagged'));
+            $this->set(compact('getUserInfo'));
 
         } else {
             //Set message error

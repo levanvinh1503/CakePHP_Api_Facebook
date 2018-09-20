@@ -21,7 +21,9 @@
                             <td>Birthday:</td>
                             <td>
                                 <?php
+                                //Convert object to array
                                 $objToArray = get_object_vars($getUserInfo['birthday']);
+                                //Get datetime
                                 $birthDay = $objToArray['date'];
                                 if (isset($birthDay)) {
                                     $dateTime = explode(' ', $birthDay);
