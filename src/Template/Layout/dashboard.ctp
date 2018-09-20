@@ -55,8 +55,7 @@ $cakeDescription = 'Demo CakePHP';
                     <li>
                         <?= $this->Html->link('<em class="fa fa-home"></em> Dashboard</a>', [
                             'controller' => 'AccountSocial',
-                            'action' => 'dashBoard',
-                            'id' => $Auth->user('id')
+                            'action' => 'dashBoard'
                         ], [
                             'id' => 'flip-category',
                             'escape' => false
@@ -65,8 +64,7 @@ $cakeDescription = 'Demo CakePHP';
                     <li class="">
                         <?= $this->Html->link('<em class="fa fa-bars"></em> List friend', [
                             'controller' => 'AccountSocial',
-                            'action' => 'listFriend',
-                            'id' => $Auth->user('id')
+                            'action' => 'listFriend'
                         ], [
                             'id' => 'flip-category',
                             'escape' => false
@@ -75,8 +73,7 @@ $cakeDescription = 'Demo CakePHP';
                     <li class="">
                         <?= $this->Html->link('<em class="fa fa-bars"></em> List bài đăng', [
                             'controller' => 'AccountSocial',
-                            'action' => 'listPost',
-                            'id' => $Auth->user('id')
+                            'action' => 'listPost'
                         ], [
                             'id' => 'flip-category',
                             'escape' => false

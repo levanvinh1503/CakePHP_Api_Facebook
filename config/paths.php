@@ -94,3 +94,4 @@ define('FACEBOOK_SDK_V4_SRC_DIR','../vendor/facebook/graph-sdk/src/Facebook/');
 //Define limit
 define('FRIEND_LIMIT', 5);
 define('POST_LIMIT', 5);
+define('IMAGE_LIMIT', 5);

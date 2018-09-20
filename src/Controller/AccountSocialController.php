@@ -74,10 +74,14 @@ class AccountSocialController extends AppController
      * @param  string $idAccount
      * @return \Cake\Http\Response|void
      */
-    public function dashBoard($idAccount = null)
+    public function dashBoard()
     {
+        //Connect API Facebook
+        $facebookObj = $this->FunctionLb->connectApi();
+        //Get id account login
+        $idAccount = $this->Auth->user('id');
         //Get token
-        $accessToken = $this->request->session()->read('token');
+        $accessToken = $facebookObj->getApp()->getAccessToken()->getValue();
         //Connect API Facebook
         $facebookObj = $this->FunctionLb->connectApi();
         //Save data friend into database
@@ -95,7 +99,7 @@ class AccountSocialController extends AppController
         //Set Layout
         $this->viewBuilder()->setLayout('dashboard');
 
-        $this->set(compact('friendSocial', 'postSocial', 'idAccount'));
+        $this->set(compact('friendSocial', 'postSocial'));
     }
 
     /**
@@ -103,10 +107,14 @@ class AccountSocialController extends AppController
      * @param  string $idAccount
      * @return \Cake\Http\Response|void
      */
-    public function listFriend($idAccount = null)
+    public function listFriend()
     {
+        //Connect API Facebook
+        $facebookObj = $this->FunctionLb->connectApi();
+        //Get id account login
+        $idAccount = $this->Auth->user('id');
         //Get token
-        $accessToken = $this->request->session()->read('token');
+        $accessToken = $facebookObj->getApp()->getAccessToken()->getValue();
         //Connect API Facebook
         $facebookObj = $this->FunctionLb->connectApi();
         //Save data friend into database
@@ -115,11 +123,35 @@ class AccountSocialController extends AppController
         $this->viewBuilder()->setLayout('dashboard');
         //Load model Category
         $friendModel = $this->loadModel('FriendSocial');
-        $arrayFriend = $this->paginate($friendModel->find(), [
-            'limit' => FRIEND_LIMIT
+        //Get the keyword "search"
+        $keySearch = trim($this->request->getQuery('search'), '%');
+        //Set keyword
+        $keyWord = '%' . $keySearch . '%';
+        //Get, set keyword submit form search
+        if ($this->request->is(['post'])) {
+            $keySearch = $this->request->getData('search');
+            $keyWord = '%' . $keySearch . '%';
+        }
+
+        //Search by keyword
+        $arrayFriend = $this->paginate($friendModel->find()->where([
+            'id_account' => $idAccount,
+            'OR' => [
+                'id LIKE' => $keyWord,
+                'name_friend LIKE' => $keyWord
+            ]
+        ]), [
+            'limit' => FRIEND_LIMIT,
+            'contain' => []
         ]);
+
+        //Redirect page with keyword
+        if ($this->request->is(['post'])) {
+            $this->redirect(['controller' => 'AccountSocial', 'action' => 'listFriend', 'search' => $keyWord]);
+            $this->set(compact('arrayFriend', 'keySearch'));
+        }
         //Set data to view
-        $this->set(compact('arrayFriend', 'idAccount'));
+        $this->set(compact('arrayFriend', 'keySearch'));
     }
 
     /**
@@ -127,10 +159,14 @@ class AccountSocialController extends AppController
      * @param  string $idAccount
      * @return \Cake\Http\Response|void
      */
-    public function listPost($idAccount = null)
+    public function listPost()
     {
+        //Connect API Facebook
+        $facebookObj = $this->FunctionLb->connectApi();
+        //Get id account login
+        $idAccount = $this->Auth->user('id');
         //Get token
-        $accessToken = $this->request->session()->read('token');
+        $accessToken = $facebookObj->getApp()->getAccessToken()->getValue();
         //Connect API Facebook
         $facebookObj = $this->FunctionLb->connectApi();
         //Save data post into database
@@ -139,10 +175,70 @@ class AccountSocialController extends AppController
         $this->viewBuilder()->setLayout('dashboard');
         //Load model Category
         $postModel = $this->loadModel('PostSocial');
-        $arrayPost = $this->paginate($postModel->find(), [
-            'limit' => POST_LIMIT
+        //Get the keyword "search"
+        $keySearch = trim($this->request->getQuery('search'), '%');
+        //Set keyword
+        $keyWord = '%' . $keySearch . '%';
+        //Get, set keyword submit form search
+        if ($this->request->is(['post'])) {
+            $keySearch = $this->request->getData('search');
+            $keyWord = '%' . $keySearch . '%';
+        }
+
+        //Search by keyword
+        $arrayPost = $this->paginate($postModel->find()->where([
+            'id_account' => $idAccount,
+            'OR' => [
+                'id LIKE' => $keyWord,
+                'message LIKE' => $keyWord
+            ]
+        ]), [
+            'limit' => POST_LIMIT,
+            'contain' => []
         ]);
+
+        //Redirect page with keyword
+        if ($this->request->is(['post'])) {
+            $this->redirect(['controller' => 'AccountSocial', 'action' => 'listPost', 'search' => $keyWord]);
+            $this->set(compact('arrayPost', 'keySearch'));
+        }
         //Set data to view
-        $this->set(compact('arrayPost', 'idAccount'));
+        $this->set(compact('arrayPost', 'keySearch'));
+    }
+
+    /**
+     * View detailed friend information
+     * @param  string $idFriend
+     * @return \Cake\Http\Response|void
+     */
+    public function detailFriend($idFriend = null)
+    {
+        //Connect API Facebook
+        $facebookObj = $this->FunctionLb->connectApi();
+        //Get id account login
+        $idAccount = $this->Auth->user('id');
+        //Get token
+        $accessToken = $facebookObj->getApp()->getAccessToken()->getValue();
+        //Load model Friend
+        $friendModel = $this->loadModel('FriendSocial');
+        //Set layout
+        $this->viewBuilder()->setLayout('dashboard');
+        //Get user infomation with id = idFriend
+        $getFriend = $friendModel->get($idFriend.'_'.$idAccount, [
+            'contain' => []
+        ]);
+        //Check if the user is a friend of the login account
+        if ($getFriend->id_account == $idAccount) {
+            //Get user infomation
+            $getUserInfo = $this->FunctionLb->getUserInfo($facebookObj, $idFriend, $accessToken);
+            $this->set(compact('getUserInfo', 'getImageUpload', 'getImageTagged'));
+
+        } else {
+            //Set message error
+            $this->Flash->error('Người dùng này không phải là bạn bè của bạn, bạn không có quyền xem thông tin người dùng này. Vui lòng thử lại !', [
+                'key' => 'detailFriend',
+                'params' => []
+            ]);
+        }
     }
 }

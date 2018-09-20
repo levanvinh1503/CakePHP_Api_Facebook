@@ -21,8 +21,7 @@
                     <div class="clearfix"></div>
                     </div>', [
                         'controller' => 'AccountSocial',
-                        'action' => 'listFriend',
-                        'id' => $idAccount
+                        'action' => 'listFriend'
                     ], [
                         'escape' => false
                     ]);
@@ -48,8 +47,7 @@
                     <div class="clearfix"></div>
                     </div>', [
                         'controller' => 'AccountSocial',
-                        'action' => 'listFriend',
-                        'id' => $idAccount
+                        'action' => 'listFriend'
                     ], [
                         'escape' => false
                     ]);

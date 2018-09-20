@@ -27,8 +27,8 @@ class FunctionLbComponent extends Component
 
     /**
      * Get infomation of account facebook
-     * @param  object $facebookObj
-     * @param  string $accessToken
+     * @param object $facebookObj
+     * @param string $accessToken
      * @return array
      */
     public function getInfo($facebookObj, $accessToken)
@@ -40,10 +40,25 @@ class FunctionLbComponent extends Component
     }
 
     /**
+     * Get infomation of account facebook
+     * @param object $facebookObj
+     * @param string $idAccount
+     * @param string $accessToken
+     * @return array
+     */
+    public function getUserInfo($facebookObj, $idAccount, $accessToken)
+    {
+        $getInfo = $facebookObj->post('/' . $idAccount, ['fields' => 'id,name,email,gender,birthday,picture'], $accessToken);
+        $graphNode = $getInfo->getGraphNode();
+
+        return $graphNode;
+    }
+
+    /**
      * Get list friend of account facebook
-     * @param  object $facebookObj
-     * @param  string $accessToken
-     * @param  string $idAccount
+     * @param object $facebookObj
+     * @param string $accessToken
+     * @param string $idAccount
      * @return object
      */
     public function getFriend($facebookObj, $accessToken, $idAccount)
@@ -56,9 +71,9 @@ class FunctionLbComponent extends Component
 
     /**
      * Get list post of account facebook
-     * @param  object $facebookObj
-     * @param  string $accessToken
-     * @param  string $idAccount
+     * @param object $facebookObj
+     * @param string $accessToken
+     * @param string $idAccount
      * @return object
      */
     public function getPost($facebookObj, $accessToken, $idAccount)
@@ -71,9 +86,9 @@ class FunctionLbComponent extends Component
 
     /**
      * Save data into database
-     * @param  object $friendModel
-     * @param  array $arrayData
-     * @param  string $idPost
+     * @param object $friendModel
+     * @param array $arrayData
+     * @param string $idPost
      */
     public function saveData($friendModel, $arrayData, $idPost)
     {   
@@ -92,10 +107,10 @@ class FunctionLbComponent extends Component
 
     /**
      * Save post list to database 
-     * @param  object $facebookObj
-     * @param  object $postModel
-     * @param  string $accessToken
-     * @param  string $idAccount
+     * @param object $facebookObj
+     * @param object $postModel
+     * @param string $accessToken
+     * @param string $idAccount
      */
     public function loadPost($facebookObj, $postModel, $accessToken, $idAccount)
     {
@@ -127,10 +142,10 @@ class FunctionLbComponent extends Component
 
     /**
      * Save friend list to database
-     * @param  object $facebookObj
-     * @param  object $friendModel
-     * @param  string $accessToken
-     * @param  string $idAccount
+     * @param object $facebookObj
+     * @param object $friendModel
+     * @param string $accessToken
+     * @param string $idAccount
      */
     public function loadFriend($facebookObj, $friendModel, $accessToken, $idAccount)
     {

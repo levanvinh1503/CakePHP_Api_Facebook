@@ -1,12 +1,18 @@
 <div class="list-category-admin">
     <h2 class="title-dashborad">Danh sách bạn bè</h2>
     <?= $this->Flash->render('delete-category')?>
-    
+    <div class="search-block">
+        <?= $this->Form->create('search', ['id' => 'form-search', 'url' => ['controller' => 'AccountSocial', 'action' => 'listFriend']]);?>
+        <?= $this->Form->input('search', ['value' => $keySearch])?>
+        <?= $this->Form->button('<i class="fa fa-search"></i>', ['class' => 'btn-search', 'escape' => false])?>
+        <?= $this->Form->end()?>
+    </div>
     <table class="table table-striped table-bordered table-hover" id="table-list-category">
         <thead>
             <tr>
-                <th style="width: 40%">ID Friend</th>
-                <th style="width: 60%">Tên Friend</th>
+                <th style="width: 30%">ID Friend</th>
+                <th style="width: 50%">Tên Friend</th>
+                <th style="width: 20%">Hành động</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +28,16 @@
                             ?>
                         </td>
                         <td><?= h($valueFriend->name_friend) ?></td>
+                        <td>
+                            <?= $this->Html->link('<i class="fa fa-edit"></i> Xem chi tiết', [
+                                'controller' => 'AccountSocial',
+                                'action' => 'detailFriend',
+                                'id' => $idAccount[0]
+                            ], [
+                                'class' => 'btn btn-primary edit-category',
+                                'escape' => false
+                            ])?>
+                        </td>
                     </tr>
                     <?php 
                 }

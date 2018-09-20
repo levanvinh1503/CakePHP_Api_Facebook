@@ -73,7 +73,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->fallbacks(DashedRoute::class);
 });
 Router::scope('/account', function (RouteBuilder $routes) {
-    $routes->connect('/dashboard/:id', ['controller' => 'AccountSocial', 'action' => 'dashBoard'], ['id' => '\d+', 'pass' => ['id']]);
-    $routes->connect('/list-friends/:id', ['controller' => 'AccountSocial', 'action' => 'listFriend'], ['id' => '\d+', 'id1' => '\d+', 'pass' => ['id']]);
-    $routes->connect('/list-post/:id', ['controller' => 'AccountSocial', 'action' => 'listPost'], ['id' => '\d+', 'id1' => '\d+', 'pass' => ['id']]);
+    $routes->connect('/dashboard', ['controller' => 'AccountSocial', 'action' => 'dashBoard']);
+    $routes->connect('/list-friends', ['controller' => 'AccountSocial', 'action' => 'listFriend'], ['id' => '\d+']);
+    $routes->connect('/list-post', ['controller' => 'AccountSocial', 'action' => 'listPost'], ['id' => '\d+']);
+    $routes->connect('/friend-detail/:id', ['controller' => 'AccountSocial', 'action' => 'detailFriend'], ['id' => '\d+', 'pass' => ['id']]);
 });
