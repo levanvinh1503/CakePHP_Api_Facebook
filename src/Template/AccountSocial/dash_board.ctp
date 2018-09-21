@@ -21,7 +21,7 @@
                     <div class="clearfix"></div>
                     </div>', [
                         'controller' => 'AccountSocial',
-                        'action' => 'listFriend'
+                        'action' => 'listPost'
                     ], [
                         'escape' => false
                     ]);

@@ -66,7 +66,7 @@ class AccountSocialController extends AppController
         $this->Auth->setUser($getInfo);
 
         //Redirect dashboard page
-        return $this->redirect(['controller' => 'AccountSocial', 'action' => 'dashBoard', 'id' => $getInfo['id']]);
+        return $this->redirect(['controller' => 'AccountSocial', 'action' => 'dashBoard']);
     }
 
     /**
@@ -231,7 +231,11 @@ class AccountSocialController extends AppController
         if ($getFriend->id_account == $idAccount) {
             //Get user infomation
             $getUserInfo = $this->FunctionLb->getUserInfo($facebookObj, $idFriend, $accessToken);
-            $this->set(compact('getUserInfo'));
+            //Get photo upload
+            $getImageUpload = $this->FunctionLb->getPhotoUpload($facebookObj, $idFriend, $this->request->session()->read('token'));
+            //Get photo tagged
+            $getImageTagged = $this->FunctionLb->getPhotoTagged($facebookObj, $idFriend, $this->request->session()->read('token'));
+            $this->set(compact('getUserInfo', 'getImageUpload', 'getImageTagged'));
 
         } else {
             //Set message error

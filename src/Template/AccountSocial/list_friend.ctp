@@ -10,8 +10,8 @@
     <table class="table table-striped table-bordered table-hover" id="table-list-category">
         <thead>
             <tr>
-                <th style="width: 30%">ID Friend</th>
-                <th style="width: 50%">Tên Friend</th>
+                <th style="width: 30%"><?= $this->Paginator->sort('id', $this->Html->image('sort_both.png'), ['escape' => false])?> Friend</th>
+                <th style="width: 50%"><?= $this->Paginator->sort('name_friend', $this->Html->image('sort_both.png'), ['escape' => false])?>Tên Friend</th>
                 <th style="width: 20%">Hành động</th>
             </tr>
         </thead>

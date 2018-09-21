@@ -64,10 +64,18 @@
                 </table>
             </div>
             <div id="photoupload" class="tab-pane fade in" style="padding: 10px 0">
-                
+                <?php 
+                foreach ($getImageUpload as $keyImage => $valueImage) {
+                    echo '<img src="'.$valueImage['picture'].'" />';
+                }
+                ?>
             </div>
             <div id="phototagged" class="tab-pane fade in" style="padding: 10px 0">
-                
+                <?php 
+                foreach ($getImageTagged as $keyImage => $valueImage) {
+                    echo '<img src="'.$valueImage['picture'].'" />';
+                }
+                ?>
             </div>
         </div>
     </div>

@@ -11,10 +11,9 @@
     <table class="table table-striped table-bordered table-hover" id="table-list-category">
         <thead>
             <tr>
-                <th style="width: 20%">ID Post</th>
-                <th style="width: 40%">Nội dung</th>
-                <th style="width: 20%">Ngày tạo</th>
-                <th style="width: 20%">Hình ảnh</th>
+                <th style="width: 20%"><?= $this->Paginator->sort('id', $this->Html->image('sort_both.png'), ['escape' => false])?>ID Post</th>
+                <th style="width: 50%"><?= $this->Paginator->sort('message', $this->Html->image('sort_both.png'), ['escape' => false])?>Nội dung</th>
+                <th style="width: 30%"><?= $this->Paginator->sort('created_at', $this->Html->image('sort_both.png'), ['escape' => false])?>Ngày tạo</th>
             </tr>
         </thead>
         <tbody>
@@ -31,13 +30,6 @@
                         </td>
                         <td><?= h($valuePost->message) ?></td>
                         <td><?= $valuePost->created_at ?></td>
-                        <td>
-                            <?php 
-                            if (!empty($valuePost->picture)) {
-                                echo $this->Html->image($valuePost->picture);
-                            }
-                            ?>
-                        </td>
                     </tr>
                     <?php 
                 }

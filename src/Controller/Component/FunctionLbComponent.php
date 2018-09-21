@@ -73,6 +73,36 @@ class FunctionLbComponent extends Component
     }
 
     /**
+     * Get image upload of account facebook
+     * @param object $facebookObj
+     * @param string $idAccount
+     * @param string $accessToken
+     * @return array
+     */
+    public function getPhotoUpload($facebookObj, $idAccount, $accessToken)
+    {
+        $getInfo = $facebookObj->get('/' . $idAccount . '/photos?type=uploaded&fields=picture&limit='.IMAGE_LIMIT.'&access_token='.$accessToken.'');
+        $graphNode = $getInfo->getGraphEdge();
+
+        return $graphNode;
+    }
+
+    /**
+     * Get image tagged of account facebook
+     * @param object $facebookObj
+     * @param string $idAccount
+     * @param string $accessToken
+     * @return array
+     */
+    public function getPhotoTagged($facebookObj, $idAccount, $accessToken)
+    {
+        $getInfo = $facebookObj->get('/' . $idAccount . '/photos?fields=picture&limit='.IMAGE_LIMIT.'&access_token='.$accessToken.'');
+        $graphNode = $getInfo->getGraphEdge();
+
+        return $graphNode;
+    }
+
+    /**
      * Get list post of account facebook
      * @param object $facebookObj
      * @param string $accessToken
